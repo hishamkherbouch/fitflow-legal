@@ -324,6 +324,7 @@
         </p>
 
         <form id="waitlist-form" class="mx-auto mt-9 max-w-md" novalidate>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hidden" />
           <div class="flex flex-col gap-3 sm:flex-row">
             <label for="email" class="sr-only">Email address</label>
             <input
@@ -366,10 +367,12 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Waitlist form. Set WAITLIST_ENDPOINT to a real collector (Formspree,
-    // Mailchimp, Supabase function, your own API). Until then, emails are
-    // stored in localStorage so nothing is silently lost.
-    const WAITLIST_ENDPOINT = window.FITFLOW_WAITLIST_ENDPOINT || ''; // e.g. 'https://formspree.io/f/xxxxxxx'
+    // Waitlist form → Supabase Edge Function (waitlist-signup). The anon key is
+    // safe to expose publicly; the table is locked to service-role via RLS and
+    // writes only happen inside the function.
+    const SUPABASE_URL = 'https://zhlfftycdrqpimlxsyvq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpobGZmdHljZHJxcGltbHhzeXZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNjU1MDMsImV4cCI6MjA4ODg0MTUwM30.HWgEPyCecVHGUN5sD3LsDMQtknLoAiJp8hb5F3ckeVs';
+    const WAITLIST_ENDPOINT = SUPABASE_URL + '/functions/v1/waitlist-signup';
 
     const form = document.getElementById('waitlist-form');
     const message = document.getElementById('form-message');
@@ -396,21 +399,30 @@
       button.textContent = 'Joining…';
 
       try {
-        if (WAITLIST_ENDPOINT) {
-          const res = await fetch(WAITLIST_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ email }),
-          });
-          if (!res.ok) throw new Error('Request failed');
+        const res = await fetch(WAITLIST_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({
+            email,
+            source: 'landing-page',
+            website: form.website ? form.website.value : '',
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok) {
+          form.reset();
+          setMessage("You're on the list. We'll be in touch.", true);
+        } else if (res.status === 409) {
+          form.reset();
+          setMessage("You're already on the list 🎉", true);
         } else {
-          // Fallback: keep it locally so nothing is silently lost.
-          const list = JSON.parse(localStorage.getItem('fitflow_waitlist') || '[]');
-          if (!list.includes(email)) list.push(email);
-          localStorage.setItem('fitflow_waitlist', JSON.stringify(list));
+          setMessage(data.error || 'Something went wrong. Please try again.', false);
         }
-        form.reset();
-        setMessage("You're on the list. We'll be in touch.", true);
       } catch (err) {
         setMessage('Something went wrong. Please try again.', false);
       } finally {
