@@ -1,155 +1,181 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --accent: #18c97d;
-  --max: 720px;
+  --ink-900: #0a0e12;
+  --ink-800: #0e1419;
+  --ink-700: #141b22;
+  --ink-600: #1c2630;
+  --teal: #2dd4bf;
+  --teal-glow: #22d3ee;
+  --text: #cbd5e1;   /* slate-300 */
+  --muted: #94a3b8;  /* slate-400 */
+  --faint: #64748b;  /* slate-500 */
+  --border: rgba(255, 255, 255, 0.07);
+  --max: 760px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f0f0f;
-    --text: #f0f0f0;
-    --muted: #9ca3af;
-    --border: #2d2d2d;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--bg);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--ink-900);
   color: var(--text);
   line-height: 1.7;
   font-size: 16px;
-  padding: 40px 20px 80px;
+  -webkit-font-smoothing: antialiased;
 }
 
+::selection { background: rgba(45, 212, 191, 0.3); color: #fff; }
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { color: var(--text); font-weight: 600; }
+
+/* ---- Header ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 14, 18, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.logo { display: flex; align-items: center; gap: 8px; color: #fff; }
+.logo:hover { text-decoration: none; }
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--teal), var(--teal-glow));
+  color: var(--ink-900);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.logo-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+
+.nav { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+.nav a { color: var(--muted); transition: color 0.15s ease; }
+.nav a:hover { color: #fff; text-decoration: none; }
+.nav a.active { color: var(--teal); }
+
+/* ---- Article ---- */
 .wrap {
   max-width: var(--max);
   margin: 0 auto;
-}
-
-header {
-  margin-bottom: 48px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--accent);
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-icon svg {
-  width: 20px;
-  height: 20px;
-  fill: white;
-}
-
-.logo-name {
-  font-size: 20px;
-  font-weight: 700;
+  padding: 56px 20px 40px;
 }
 
 .page-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 6px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #fff;
 }
 
 .effective-date {
+  margin-top: 8px;
   font-size: 14px;
-  color: var(--muted);
+  color: var(--faint);
 }
+
+.wrap p { margin-top: 14px; color: var(--muted); }
+.wrap > p:first-of-type { margin-top: 24px; }
 
 h2 {
-  font-size: 18px;
+  margin-top: 40px;
+  margin-bottom: 2px;
+  font-size: 20px;
   font-weight: 600;
-  margin-top: 36px;
-  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+  color: #fff;
 }
 
-p {
-  margin-bottom: 14px;
-  color: var(--text);
-}
+ul { margin: 14px 0; padding-left: 22px; }
+li { margin-bottom: 8px; color: var(--muted); }
+li::marker { color: var(--teal); }
 
-ul {
-  margin: 0 0 14px 0;
-  padding-left: 24px;
-}
-
-li {
-  margin-bottom: 8px;
-}
-
+/* ---- Table ---- */
 table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 14px;
-  font-size: 15px;
+  margin: 20px 0;
+  font-size: 14.5px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
 }
+
+thead { background: var(--ink-700); }
 
 th {
   text-align: left;
-  padding: 10px 12px;
-  background: var(--border);
+  padding: 12px 14px;
+  font-size: 12px;
   font-weight: 600;
-  font-size: 13px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  color: var(--muted);
 }
 
 td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover { text-decoration: underline; }
-
-.nav {
-  display: flex;
-  gap: 24px;
-  margin-top: 16px;
-  font-size: 14px;
-}
-
-.nav a {
-  color: var(--muted);
-}
-
-.nav a.active {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-footer {
-  margin-top: 64px;
-  padding-top: 24px;
+  padding: 12px 14px;
   border-top: 1px solid var(--border);
-  font-size: 13px;
+  vertical-align: top;
   color: var(--muted);
+}
+
+tbody tr { background: var(--ink-800); }
+td strong { color: #fff; }
+
+/* ---- Footer ---- */
+.site-footer {
+  margin-top: 56px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--faint);
+  text-align: center;
+}
+
+.logo-sm { display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
+.logo-sm:hover { text-decoration: none; }
+.logo-sm .logo-mark { width: 24px; height: 24px; font-size: 12px; border-radius: 7px; }
+
+.footer-links { display: flex; gap: 18px; }
+.footer-links a { color: var(--faint); }
+.footer-links a:hover { color: var(--text); text-decoration: none; }
+
+@media (min-width: 640px) {
+  .footer-inner { flex-direction: row; text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
