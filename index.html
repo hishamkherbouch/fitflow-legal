@@ -10,6 +10,7 @@
   <meta property="og:title" content="FitFlow — The fitness app that helps you stay consistent" />
   <meta property="og:description" content="Personalized AI consistency plans for your workouts and diet. Stop quitting. Start staying consistent." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://fitflow.hfoster-labs.dev/appicon.png" />
 
   <link rel="icon" type="image/png" href="/appicon.png" />
   <link rel="apple-touch-icon" href="/appicon.png" />
@@ -30,10 +31,10 @@
               700: '#141b22',
               600: '#1c2630',
             },
-            // App brand — iOS system green (AppColors.accent #34C759)
+            // App brand — AppColors.accent #2D6BFF
             brand: {
-              accent: '#34c759',
-              glow: '#4ade80',
+              accent: '#2d6bff',
+              glow: '#4f86ff',
             },
           },
           keyframes: {
@@ -52,17 +53,17 @@
   <style>
     body { background-color: #0a0e12; }
     .gradient-text {
-      background: linear-gradient(135deg, #34c759 0%, #4ade80 100%);
+      background: linear-gradient(135deg, #2d6bff 0%, #4f86ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .glow {
-      box-shadow: 0 0 0 1px rgba(52,199,89,0.15), 0 20px 60px -20px rgba(74,222,128,0.35);
+      box-shadow: 0 0 0 1px rgba(45,107,255,0.15), 0 20px 60px -20px rgba(79,134,255,0.35);
     }
     .grid-bg {
       background-image:
-        radial-gradient(circle at 50% 0%, rgba(52,199,89,0.10), transparent 55%),
+        radial-gradient(circle at 50% 0%, rgba(45,107,255,0.10), transparent 55%),
         linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
       background-size: 100% 100%, 44px 44px, 44px 44px;
@@ -114,7 +115,7 @@
           keep showing up.
         </p>
         <div class="mt-9 flex animate-fade-up flex-col items-center justify-center gap-3 sm:flex-row" style="animation-delay:.15s">
-          <a href="#waitlist" class="glow w-full rounded-full bg-gradient-to-r from-brand-accent to-brand-glow px-7 py-3.5 text-base font-semibold text-ink-900 transition hover:opacity-90 sm:w-auto">
+          <a href="#waitlist" class="glow w-full rounded-full bg-gradient-to-r from-brand-accent to-brand-glow px-7 py-3.5 text-base font-semibold text-white transition hover:opacity-90 sm:w-auto">
             Get early access
           </a>
           <a href="#how" class="w-full rounded-full px-7 py-3.5 text-base font-semibold text-slate-300 ring-1 ring-white/10 transition hover:bg-white/5 sm:w-auto">
@@ -369,7 +370,7 @@
             />
             <button
               type="submit"
-              class="glow shrink-0 rounded-full bg-gradient-to-r from-brand-accent to-brand-glow px-7 py-3.5 font-semibold text-ink-900 transition hover:opacity-90 disabled:opacity-60"
+              class="glow shrink-0 rounded-full bg-gradient-to-r from-brand-accent to-brand-glow px-7 py-3.5 font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
             >
               Join waitlist
             </button>

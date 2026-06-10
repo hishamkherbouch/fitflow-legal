@@ -9,8 +9,8 @@
   --faint: #8e8e93;         /* tertiaryLabel */
   --separator: rgba(60, 60, 67, 0.18);
   --hairline: rgba(0, 0, 0, 0.06);
-  --accent: #34c759;        /* AppColors.accent — health green */
-  --accent-press: #2cb14f;
+  --accent: #2d6bff;        /* AppColors.accent — brand blue */
+  --accent-press: #2457cc;
   --header-bg: rgba(249, 249, 249, 0.82);
   --max: 760px;
 }
@@ -41,7 +41,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: rgba(52, 199, 89, 0.25); }
+::selection { background: rgba(45, 107, 255, 0.25); }
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
