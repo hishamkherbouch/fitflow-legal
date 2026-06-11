@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fitflow.hfoster-labs.dev/sitemap.xml
